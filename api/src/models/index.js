@@ -9,7 +9,6 @@ const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   loggin: false,
 });
 
-
 console.log(db.models);
 
 class Product extends Model {}
@@ -56,8 +55,8 @@ Category.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+      autoIncrement: true,
+      allowNull: false,
       field: "id",
     },
     name: {
@@ -74,10 +73,12 @@ Category.init(
   }
 );
 console.log(db.models);
-Product.belongsTo(Category, { as: "category", foreignKey: 'categoryId'});
-Category.hasMany(Product, { as: "category", foreignKey: 'categoryId', ondDelete: 'CASCADE'});
-
-
+Product.belongsTo(Category, { as: "category", foreignKey: "categoryId" });
+Category.hasMany(Product, {
+  as: "category",
+  foreignKey: "categoryId",
+  ondDelete: "CASCADE",
+});
 
 module.exports = {
   Product,
