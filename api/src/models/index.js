@@ -60,17 +60,17 @@ class Category extends Model {}
 Category.init(
   {
     // Model attributes are defined here
-    // id: {
-    //   type: DataTypes.INTEGER,
-    //   primaryKey: true,
-    // //   autoIncrement: true,
-    // //   allowNull: false,
-    //   field: "id",
-    // },
-    // name: {
-    //   type: DataTypes.STRING,
-    //   field: "name",
-    // },
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      //   autoIncrement: true,
+      //   allowNull: false,
+      field: "id",
+    },
+    name: {
+      type: DataTypes.STRING,
+      field: "name",
+    },
   },
   {
     modelName: "category",
@@ -81,12 +81,11 @@ Category.init(
   }
 );
 console.log(db.models);
-Product.belongsTo(Category)
-Category.hasMany(Product, {as: "category"})
-
+Product.belongsTo(Category);
+Category.hasMany(Product, { as: "category" });
 
 module.exports = {
-    Product,
-    Category,
+  Product,
+  Category,
   db,
 };
