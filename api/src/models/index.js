@@ -2,102 +2,91 @@ require("dotenv").config();
 const { Sequelize, DataTypes, Model } = require("sequelize");
 // const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const sequelize = new Sequelize("bsale_test", "bsale_test", "bsale_test", {
+const db = new Sequelize("bsale_test", "bsale_test", "bsale_test", {
   host: "mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com",
-  port: 3306,
+  port: "3306",
   dialect: "mysql",
   loggin: false,
 });
 
-class Product extends Model {}
+db.authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((err) => {
+    console.error("Unable to connect to the database:", err);
+  });
 
+console.log(db.models);
+
+class Product extends Model {}
 Product.init(
   {
-    // Model attributes are defined here
     id: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
       autoIncrement: true,
+      allowNull: false,
+      field: "id",
     },
     name: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
+      field: "name",
     },
     url_image: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
+      field: "url_image",
     },
     price: {
       type: DataTypes.FLOAT,
+      field: "price",
     },
     discount: {
-      type: DataTypes.INTEGER(11),
-    },
-    category: {
-      type: DataTypes.INTEGER(11),
+      type: DataTypes.INTEGER,
+      field: "discount",
     },
   },
   {
-    sequelize,
-    modelName: "Product",
+    modelName: "product",
+    tableName: "products",
+    sequelize: db,
+    timestamps: false,
+    freezeTableName: true,
   }
 );
+console.log(db.models);
 
 class Category extends Model {}
-
 Category.init(
   {
     // Model attributes are defined here
-    id: {
-      type: DataTypes.INTEGER(11),
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-    },
-    name: {
-      type: DataTypes.STRING(255),
-    },
-   
+    // id: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    // //   autoIncrement: true,
+    // //   allowNull: false,
+    //   field: "id",
+    // },
+    // name: {
+    //   type: DataTypes.STRING,
+    //   field: "name",
+    // },
   },
   {
-    sequelize,
-    modelName: "Category",
+    modelName: "category",
+    tableName: "categories",
+    sequelize: db,
+    freezeTableName: false,
+    timestamps: false,
   }
 );
-// the defined model is the class itself
-console.log(Product === sequelize.models.Product);
-console.log(Category === sequelize.models.Category);
-//   const product = db.product()
-//   console.log(product)
-//   console.log(db.Product)
-//   const Product = db.define('product',{
-//     name: {
-//         type: DataTypes.STRING,
-//     },
-//     url_image: {
-//         type: DataTypes.TEXT,
-//     },
-//     price: {
-//         type: DataTypes.BIGINT,
-//     },
-//     discount: {
-//         type: DataTypes.INTEGER,
-//     },
-//     category: {
-//         type: DataTypes.INTEGER
-//     }
-//   })
+console.log(db.models);
+Product.belongsTo(Category)
+Category.hasMany(Product, {as: "category"})
 
-//   const Category = db.define('category',{
-//     name: {
-//         type: DataTypes.STRING,
-//     },
-
-//   })
-
-// relacionar tablas
 
 module.exports = {
-  //   Product,
-  //   Category,
-  sequelize,
+    Product,
+    Category,
+  db,
 };
