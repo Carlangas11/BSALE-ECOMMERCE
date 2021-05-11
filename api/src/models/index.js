@@ -1,21 +1,14 @@
 require("dotenv").config();
 const { Sequelize, DataTypes, Model } = require("sequelize");
-// const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
-const db = new Sequelize("bsale_test", "bsale_test", "bsale_test", {
-  host: "mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com",
+const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
   port: "3306",
   dialect: "mysql",
   loggin: false,
 });
 
-db.authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
 
 console.log(db.models);
 
@@ -63,8 +56,8 @@ Category.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      //   autoIncrement: true,
-      //   allowNull: false,
+        autoIncrement: true,
+        allowNull: false,
       field: "id",
     },
     name: {
@@ -81,8 +74,10 @@ Category.init(
   }
 );
 console.log(db.models);
-Product.belongsTo(Category);
-Category.hasMany(Product, { as: "category" });
+Product.belongsTo(Category, { as: "category", foreignKey: 'categoryId'});
+Category.hasMany(Product, { as: "category", foreignKey: 'categoryId', ondDelete: 'CASCADE'});
+
+
 
 module.exports = {
   Product,
