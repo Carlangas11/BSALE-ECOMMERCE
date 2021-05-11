@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.use(cors())
 
-router.use("/index", product)
+router.use("/", product)
 
 
 module.exports = router

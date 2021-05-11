@@ -1,25 +1,25 @@
-const { DataTypes } = require("sequelize")
+// const { DataTypes } = require("sequelize")
 
 
-module.exports = (sequelize) => {
-    sequelize.define('product', {
-        name: {
-            type: DataTypes.STRING,
-        },
-        url_image: {
-            type: DataTypes.TEXT,
-        },
-        price: {
-            type: DataTypes.BIGINT,
-        },
-        discount: {
-            type: DataTypes.INTEGER,
-        },
-        category: {
-            type: DataTypes.INTEGER
-        }
-    })
-}
+// module.exports = (sequelize) => {
+//     sequelize.define('product', {
+//         name: {
+//             type: DataTypes.STRING,
+//         },
+//         url_image: {
+//             type: DataTypes.TEXT,
+//         },
+//         price: {
+//             type: DataTypes.BIGINT,
+//         },
+//         discount: {
+//             type: DataTypes.INTEGER,
+//         },
+//         category: {
+//             type: DataTypes.INTEGER
+//         }
+//     })
+// }
 
 // id Identificador único del producto (int)
 // name Nombre del producto (varchar)

@@ -13,7 +13,7 @@ router.get("/", async (req,res)=>{
     res.send("holi")
 })
 router.get("/product", (req,res)=>{
-    res.send("ok")
+    res.json("Devolver productos")
 })
 
 module.exports = router
