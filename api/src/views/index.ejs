@@ -1,11 +1,36 @@
-<%- include('templates/header', {title: 'BSale Botilleria', categories: categories}) %>
+<%- include('templates/header', {title: 'BSale Botilleria'}) %>
 
-<div class="title">Bienvenido a la botilleria!</div>
-<ul>
-  <% data.forEach((item)=>{%>
-  <li><%=item.name%></li>
-  <%});%>
-</ul>
+
+
+
+<div class='cards'>
+    <% data.forEach((item)=>{%>
+    <div class="card">
+  <div id="closeIcon" class="row">
+      <button class="btn btn-sm btn-danger">X</button>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%=item.name%></h5>
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <p>Precio</p>
+        <p><%=item.price%></p>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <p>categoria:</p>
+        <p><%=item.category_info.dataValues.name%></p>
+      </div>
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <img class="iconoClima" src=<%=item.url_image%>  style="width:80px; height:80px" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
+    <%});%>
+
+</div>
+
+
 
 
 <%- include('templates/footer') %>
