@@ -1,0 +1,11 @@
+<%- include('templates/header', {title: 'BSale Botilleria', categories: categories}) %>
+
+<div class="title">Bienvenido a la botilleria!</div>
+<ul>
+  <% data.forEach((item)=>{%>
+  <li><%=item.name%></li>
+  <%});%>
+</ul>
+
+
+<%- include('templates/footer') %>
